@@ -7,30 +7,31 @@ if ($conn->connect_error) {
 }
 
 $dobre_odp = 0;
-
+$zle_odp = 0;
 if (isset($_POST['odp'])) {
     $odpowiedzi_uzytkownika = $_POST['odp'];
-    $nazwa_uzytkownika = $_POST['user'];
+    $username = $_POST['username'];
 
     foreach ($odpowiedzi_uzytkownika as $id_pytania => $odp_uzytkownika) {
         $zapytanie = "SELECT odpowiedz FROM `pytania` WHERE id_pytania = $id_pytania";
         $result = $conn->query($zapytanie);
-        echo $odp_uzytkownika;
         if ($result && $result->num_rows > 0) {
             $b = $result->fetch_assoc();
             $poprawna_odp = strtolower(($b['odpowiedz'])); // strtolower bo tak latwiej sprawdzisz czy jest na 100% dobra 
-            $odp_uzytkownika2 = strtolower(($odp_uzytkownika));
-
-            if ($odp_uzytkownika2 === $poprawna_odp) {
-                $dobre_odp++;
+            $odp_uzytkownika = strtolower(($odp_uzytkownika)); 
+            if ($odp_uzytkownika === $poprawna_odp) {
+                $dobra_odp = "INSERT INTO wyniki (id_pytania, id_uzytkownika, czy_poprawne) VALUES ($id_pytania, $username, 1)";
+                $conn->query($dobra_odp);
+            }else{
+                $zla_odp = "INSERT INTO wyniki (id_pytania, id_uzytkownika, czy_poprawne) VALUES ($id_pytania, $username, 0)";
+                $conn->query($zla_odp);
             }
-             
+        
         }
     }
 }
-    $sql = "INSERT INTO wyniki (user, wynik) VALUES ('$nazwa_uzytkownika', '$dobre_odp')";
-    $conn->query($sql);
-
+$sql = "INSERT INTO uzytkownicy (nazwa, dobre_odp) VALUES ('$username', '$dobre_odp')";
+$conn->query($sql);
 $conn->close();
 ?>
 
