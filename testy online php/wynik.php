@@ -36,6 +36,70 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>Wynik Quizu</title>
+    <style>
+        /* Ogólne style dla strony */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Karta wyniku */
+.container {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 400px;
+}
+
+/* Nagłówek */
+h1 {
+    color: #2c3e50;
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+}
+
+/* Wynik */
+p {
+    font-size: 1.5rem;
+    color: #3498db;
+    font-weight: bold;
+}
+
+/* Styl liczbowy */
+p span {
+    font-size: 2rem;
+    color: #27ae60;
+}
+
+/* Efekt hover dla całego wyniku */
+.container:hover {
+    transform: scale(1.02);
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Responsywność */
+@media (max-width: 500px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1.2rem;
+    }
+}
+
+    </style>
 </head>
 <body>
     <h1>Twój wynik</h1>
